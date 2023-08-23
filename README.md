@@ -31,12 +31,12 @@ git clone https://github.com/blog40813/PlantingGame.git
 ### 遊戲畫面<br>
 <br>
 
-<img src ="game/data/illustrate/mainlist.png" width =33%>  <img src ="game/data/illustrate/about.png" width =33%> <img src ="game/data/illustrate/gaming.png" width =33%> <br>
+<img src ="game/data/illustrate/mainlist.png" width =32%>  <img src ="game/data/illustrate/about.png" width =32%> <img src ="game/data/illustrate/gaming.png" width =32%> <br>
 
 ######  <p align = left>(過關解鎖更多角色↑)&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;(遊戲說明↑)&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(遊戲畫面，多種植物選擇↑)</p> 
 <br>
 
-<img src ="game/data/illustrate/store.png" width =33%>  <img src ="game/data/illustrate/win.png" width =33%> <img src ="game/data/illustrate/fail.png" width =33%> <br>
+<img src ="game/data/illustrate/store.png" width =32%>  <img src ="game/data/illustrate/win.png" width =32%> <img src ="game/data/illustrate/fail.png" width =32%> <br>
 
 
 ######  <p align = left>(商店機制，可購買種子/肥料↑)&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;(過關畫面↑)&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(失敗畫面↑)</p> 
