@@ -93,77 +93,143 @@ ALLEGRO_TIMER* game_update_timer;
 ALLEGRO_TIMER* win_anime_timer;
 
 
+//Parameter setting
+
 bool key_state[1000];
+
+//Windows size, FPS
 const int width = 1600;
 const int height = 1200;
 const int FPS=60;
+
+//Different size font
 const ALLEGRO_FONT *font;
 const ALLEGRO_FONT *font_15;
 const ALLEGRO_FONT *font_30;
 const ALLEGRO_FONT *font_50;
-int time_run = 0, money = 0,pass_time = 0,minute = 2, second = 0;
-int up = 1,down = 0,jump_count = 0,rain = 0,rain_count = 0,character = 1,about_page = 1;
+
+
+//Game time, Money in hand,Pass times
+int time_run = 0;
+int money = 0;
+int pass_time = 0;
+int TARGET=30;          //target money for pass the game
+
+
+//Winning/Losing animation.
+
+int up = 1;  //move direction
+int down = 0;
+int jump_count = 0;     //jump duration,display winning/losing time
+
+int rain = 0;           //control which rain to be used (convert between 0 and 1)
+int rain_count = 0;     //timer for switch the rain image
+
+//Character,game instruction pages
+
+int character = 1;
+int about_page = 1;
+
 
 //recording the status of plant;
-int order=0,crop_own=15,plant_status[15],time_record[15],plant_type[15],seed[5],price[5],income[5],TARGET=30;
-int game_status=0;
-//game_status : 0=in the mainlist ; 1=in the game ; 2=in the market 4=win the game 5=lose the game
-//plant_status : 0=haven't been planted 1=little size 2=middle size 3=done
-/* 1 4 7 10
-   2 5 8 11
-   3 6 9 12  */
+
+int order[15]={0};      //valid plant in field[i]
+int order_total=0;      //total valid plant in field
+int crop_own=15;        //total seed in hand
+int plant_status[15];   //plant status for plant[i]
+int time_record[15];    //time record of each plant
+int plant_type[15];     //type of plant[i]
+int seed[5];            //number of seed in hand of each plant
+int price[5];           //price of each seed
+int income[5];          //profit of each seed
 
 
-int pos_x, pos_y; // The position of the cursor.
-int bug1_f;
-int bug2_f;
-int hand=0;
-int purchase=0;
+//plant grow setting
 int grow_speed=1;
-int grow_time[5];
-int grow_time_mature[5];
+int grow_time[5];           //grow time with grow speed i
+int grow_time_mature[5];    //withered time with grow speed i
 
 
-void show_err_msg(int msg);
-void game_init();
-void game_begin();
-int process_event();
-int game_run();
-void game_destroy();
+//position setting
+int pos_x, pos_y; // The position of the cursor.
+int bug1_f;       // bug gerneration location(y)
+int bug2_f;
 
-void mainlist_background_reset();
-void game_map_display();
-void about_display();
-void game_update();
-void cropping();
-void reaping();
-void killing();
-void eating();
-void shopping();
-void plant_status_change(int);
-int valid(int,int);
-int valid_bug(int ,int );
-void win_update();
-void win_anime_display();
-void lose_anime_display();
-void game_reset();
 
-/*
-    You can declare some variables here if it is useful for you.
-*/
 
 // the position of plant and character
 typedef struct{
     int x,y;
 }ch;
-ch p_check;
-ch p_ch1;
-ch plant[15];
+
+ch p_check;     //choose character
+ch p_ch1;       //character position
+ch plant[15];   //plant position
 ch p_bug1;
 ch p_bug2;
-ch judge_plant[15][3];
-ch judge_bug[15][3];
+ch judge_plant[15][3];  //area of valid planting
+ch judge_bug[15][3];    //area of valid killing
 ch win_ch;
+
+
+//Other setting
+int hand=0;
+int purchase=0;
+
+
+int game_status=0;
+//game_status : 0 = mainlist ;
+            //  1 = game ;
+            //  2 = market
+            //  4 = win
+            //  5 = lose
+
+
+//plant_status : 0 = haven't been planted
+            //   1 = little size
+            //   2 = middle size
+            //   3 = done
+
+
+// field number
+/* 1 4 7 10
+   2 5 8 11
+   3 6 9 12  */
+
+
+
+//declare function
+
+void show_err_msg(int msg);
+void game_init();
+void game_begin();
+
+void game_destroy();
+void mainlist_background_reset();
+void game_map_display();
+void about_display();
+void game_update();
+
+void cropping();
+void reaping();
+void killing();
+void eating();
+void shopping();
+
+void plant_status_change(int);
+
+void win_update();
+void win_anime_display();
+void lose_anime_display();
+void game_reset();
+
+
+int process_event();
+int game_run();
+
+int valid(int,int);
+int valid_bug(int ,int );
+
 
 int main(int argc, char *argv[]) {
     int msg = 0;
@@ -393,6 +459,42 @@ void game_begin() {
     al_flip_display();
 }
 
+
+void game_reset(){
+    for(int i=1;i<=12;i++)
+    {
+        plant_type[i]=0;
+        plant_status[i] = 0;
+        time_record[i] = 0;
+        order[i] = 0;
+    }
+    order_total=0;
+
+    if(character==1)TARGET=20;
+    if(character==2)TARGET=20;
+    if(character==3)TARGET=20;
+
+    crop_own = 15;
+    seed[1]=crop_own;
+    seed[2]=0;
+    seed[3]=0;
+    p_ch1.x=1200;
+    p_ch1.y=800;
+    jump_count = 0;
+    win_ch.x = 0;
+    money = 0;
+    hand=0;
+    time_run = 0;
+    p_bug1.x=-300;
+    bug1_f=rand()%800;
+    p_bug2.x=1800;
+    bug2_f=rand()%400;
+    hand=0;
+    purchase=0;
+    grow_speed=3;
+}
+
+
 void mainlist_background_reset(){
     if(pos_y<600) pos_y+=150;
     else if(pos_y>900)pos_y-=150;
@@ -417,37 +519,6 @@ void mainlist_background_reset(){
 
 }
 
-void game_reset(){
-    for(int i=1;i<=12;i++)
-    {
-        plant_type[i]=0;
-        plant_status[i] = 0;
-        time_record[i] = 0;
-    }
-    order=0;
-    if(character==1)TARGET=20;
-    if(character==2)TARGET=150;
-    if(character==3)TARGET=200;
-
-    crop_own = 15;
-    seed[1]=crop_own;
-    seed[2]=0;
-    seed[3]=0;
-    p_ch1.x=1200;
-    p_ch1.y=800;
-    jump_count = 0;
-    win_ch.x = 0;
-    money = 0;
-    hand=0;
-    time_run = 0;
-    p_bug1.x=-300;
-    bug1_f=rand()%800;
-    p_bug2.x=1800;
-    bug2_f=rand()%400;
-    hand=0;
-    purchase=0;
-    grow_speed=1;
-}
 
 void about_display()
 {
@@ -585,10 +656,13 @@ void game_map_display(){
     al_flip_display();
 }
 
+
+
+
 void plant_status_change(int num){
 
     if(plant_status[num]<3) plant_status[num]++;
-    if(plant_status[num]==3) order--;
+    if(plant_status[num]==3) order[num] = 0;
     time_record[num] = time_run;
     return;
 }
@@ -597,7 +671,13 @@ void game_update(){
 
 if(game_status==1){
 
-    printf("%d\n",order);
+    order_total = 0;
+    for(int i=1;i<=12;i++)
+    {
+        order_total += order[i];
+    }
+
+    printf("%d\n",order_total);
     if(key_state[ALLEGRO_KEY_W])
     {
         if(p_ch1.y>110) p_ch1.y-=30;
@@ -672,7 +752,7 @@ if(game_status==1){
         al_stop_sample(&game_bgm_id);
         al_play_sample(sucked_bgm, 1, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, &game_bgm_id);
     }
-    if(crop_own<=0&&order<=0&&money<price[1])
+    if(crop_own<=0&&order_total<=0&&money<price[1])
     {
         game_status = 5;
         al_stop_sample(&game_bgm_id);
@@ -702,7 +782,7 @@ void eating(){
     {
         if(plant_status[a]!=0&&plant_status[a]!=3)
         {
-            order--;
+            order[a]=0;
             plant_status[a]=0;
             time_record[a]=0;
             al_play_sample(eating_bgm, 1.0 , 0.0 , 1.0 ,ALLEGRO_PLAYMODE_ONCE,&eating_bgm_id);
@@ -713,7 +793,7 @@ void eating(){
     {
         if(plant_status[a]!=0&&plant_status[a]!=3)
         {
-            order--;
+            order[a]=0;
             plant_status[a]=0;
             time_record[a]=0;
             al_play_sample(eating_bgm, 1.0 , 0.0 , 1.0 ,ALLEGRO_PLAYMODE_ONCE,&eating_bgm_id);
@@ -745,7 +825,7 @@ void cropping(){
                     plant_type[a]=1;
                     seed[1]--;
                     crop_own--;
-                    order++;
+                    order[a]=1;
                     al_play_sample(planting_bgm,1,0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&planting_bgm_id);
                 }
                 if(hand==1&&seed[2]>0)
@@ -754,7 +834,7 @@ void cropping(){
                     plant_type[a]=2;
                     seed[2]--;
                     crop_own--;
-                    order++;
+                    order[a]=1;
                     al_play_sample(planting_bgm,1,0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&planting_bgm_id);
                 }
                 if(hand==2&&seed[3]>0)
@@ -763,7 +843,7 @@ void cropping(){
                     plant_type[a]=3;
                     seed[3]--;
                     crop_own--;
-                    order++;
+                    order[a]=1;
                     al_play_sample(planting_bgm,1,0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&planting_bgm_id);
                 }
                 time_record[a]=time_run;
@@ -778,7 +858,7 @@ void reaping(){
         a=valid(p_ch1.x,p_ch1.y);
         if( a!=0)
         {
-            if(plant_status[a]!=3&&plant_status[a]!=0)order--;
+            if(plant_status[a]!=3&&plant_status[a]!=0)order[a]=0;
             for(int i=1;i<=3;i++)
             {
 
@@ -841,9 +921,11 @@ void win_anime_display()
     al_draw_bitmap(win_ch_display,win_ch.x,win_ch.y,0);
     if(jump_count>=1)
     {
+
         if(character==1) al_draw_bitmap(best_nigga,80,450,0);
         if(character==2) al_draw_bitmap(winword3,80,450,0);
         if(character==3) al_draw_bitmap(winword4,80,450,0);
+
     }
     if(jump_count>=50) al_draw_bitmap(press_esc,200,600,0);
     al_draw_bitmap(rainbow,0,30,0);
@@ -852,7 +934,8 @@ void win_anime_display()
 }
 
 void lose_anime_display(){
-    rain_count++,jump_count++;
+    rain_count++;
+    jump_count++;
     al_draw_bitmap(background_lose,0,0,0);
 
     if (rain == 0)
@@ -923,7 +1006,7 @@ int process_event() {
                 else if (pos_y==750 && pos_x==1040)
                 {
                     character = 1;
-                    win_ch_display=al_load_bitmap("black_skin.png");
+                    win_ch_display=al_load_bitmap("image/black_skin.png");
                     p_check.x = 1040;
                     p_check.y = 850;
                 }
@@ -931,13 +1014,13 @@ int process_event() {
                 {
                     printf("ch2\n");
                     character = 2;
-                    win_ch_display=al_load_bitmap("ch2.png");
+                    win_ch_display=al_load_bitmap("image/ch2.png");
                     p_check.x = 1225;
                 }
                 else if (pos_y==750 && pos_x==1410 && pass_time>=2)
                 {
                     character = 3;
-                    win_ch_display=al_load_bitmap("ch3.png");
+                    win_ch_display=al_load_bitmap("image/ch3.png");
                     p_check.x = 1410;
                 }
                 else if(pos_y==600)

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1689998874 source:d:\github\programmingi_project\game\main.c
+1692767387 source:d:\github\programmingi_project\game\main.c
 	<stdio.h>
 	<allegro5/allegro.h>
 	<allegro5/allegro_primitives.h>
