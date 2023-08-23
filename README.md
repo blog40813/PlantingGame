@@ -26,7 +26,24 @@ git clone https://github.com/blog40813/PlantingGame.git
 
 <img src ="game/data/illustrate/debug.png" width =40%>  <img src ="game/data/illustrate/release.png" width =40%>
 
-## Start playing 
+## Start playing (執行cbp檔)
+
+### 遊戲畫面<br>
+<br>
+
+<img src ="game/data/illustrate/mainlist.png" width =33%>  <img src ="game/data/illustrate/about.png" width =33%> <img src ="game/data/illustrate/gaming.png" width =33%> <br>
+
+######  <p align = left>(過關解鎖更多角色↑)&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;(遊戲說明↑)&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(遊戲畫面，多種植物選擇↑)</p> 
+<br>
+
+<img src ="game/data/illustrate/store.png" width =33%>  <img src ="game/data/illustrate/win.png" width =33%> <img src ="game/data/illustrate/fail.png" width =33%> <br>
+
+
+######  <p align = left>(商店機制，可購買種子/肥料↑)&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;(過關畫面↑)&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(失敗畫面↑)</p> 
+<br>
+
+### 遊戲操作說明<br><br>
+
 `W` `A` `S` `D`：控制游標位置/角色移動<br>
 `J`： 種植/商店購買<br>
 `K`： 殺死蟲蟲<br>
@@ -34,6 +51,18 @@ git clone https://github.com/blog40813/PlantingGame.git
 `H`： 變更種植作物 <br>
 `P`： 進入商店<br>
 `ESC`： 離開<br>
-`ENTER`： 確認<br>
+`ENTER`： 確認<br><br>
+
+
+
+### 小提醒 <br>
+* **1.&nbsp;&nbsp;若手上沒有種子，但擁有金額大於商店種子售價，不會馬上結束遊戲**  <br>
+* **2.&nbsp;肥料可加速作物生長速度/減緩枯萎速度(初始值為1，上限3)** <br>
+* **3.&nbsp;各個參數可以在cbp檔設定，可以搜尋`Parameter setting`快速找到參數** <br>
+* **4.&nbsp;切換作物的按鈕為 `H`** <br><br>
+
+
+
+
 
 
