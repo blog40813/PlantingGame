@@ -9,7 +9,7 @@
 #include <math.h>
 
 #define GAME_TERMINATE 666
-#define TIMEMAX 2400
+#define TIMEMAX 2160
 #define RESERVE_SAMPLES 4
 
 ALLEGRO_DISPLAY* display = NULL;
@@ -470,9 +470,9 @@ void game_reset(){
     }
     order_total=0;
 
-    if(character==1)TARGET=20;
-    if(character==2)TARGET=20;
-    if(character==3)TARGET=20;
+    if(character==1)TARGET=100;
+    if(character==2)TARGET=150;
+    if(character==3)TARGET=200;
 
     crop_own = 15;
     seed[1]=crop_own;
@@ -491,7 +491,7 @@ void game_reset(){
     bug2_f=rand()%400;
     hand=0;
     purchase=0;
-    grow_speed=3;
+    grow_speed=1;
 }
 
 
